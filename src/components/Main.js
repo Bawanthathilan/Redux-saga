@@ -7,13 +7,8 @@ import { useSelector } from "react-redux";
 function Main() {
   const dispatch = useDispatch();
 
-  let productData = useSelector((state) => state.productData);
-  console.warn(productData);
-
-  const product = {
-    name: "iphone",
-    price: 1000,
-  };
+  let data = useSelector((state) => state.productData);
+  console.warn(data);
 
   useEffect(() => {
     dispatch(productList());
@@ -23,10 +18,10 @@ function Main() {
     <div className="App">
       <div>
         <button onClick={() => dispatch(emptyCart())}>Empty Cart</button>
-      </div> 
+      </div>
 
       <div className="product-container">
-        {productData.map((item) => (
+        {data.map((item) => (
           <div className="product-item">
             <img src={item.photo} alt="" />
             <div>Name : {item.name} </div>

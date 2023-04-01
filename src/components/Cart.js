@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const cart = () => {
+const Cart = () => {
+  const cartData = useSelector((state) => state.cartData);
+  let amount = cartData.reduce((sum, item) => sum + item.price, 0);
+  console.warn(cartData);
+
   return (
     <div>
       <Link to="/">Go to Products Link</Link>
@@ -15,15 +20,24 @@ const cart = () => {
             <td>Brand</td>
             <td>Category</td>
           </tr>
+          {cartData.map((item) => (
+            <tr key={item.key}>
+              <td>{item.name}</td>
+              <td>{item.color}</td>
+              <td>{item.price}</td>
+              <td>{item.brand}</td>
+              <td>{item.category}</td>
+            </tr>
+          ))}
         </table>
         <div className="price-details">
           <div className="adjust-price">
             <span>Amount</span>
-            <span>0</span>
+            <span>{amount}</span>
           </div>
           <div className="adjust-price">
             <span>Discount</span>
-            <span>0</span>
+            <span>{amount / 10}</span>
           </div>
           <div className="adjust-price">
             <span>Tax</span>
@@ -31,7 +45,7 @@ const cart = () => {
           </div>
           <div className="adjust-price">
             <span>Total</span>
-            <span>0</span>
+            <span>{amount - amount / 10}</span>
           </div>
         </div>
       </div>
@@ -39,4 +53,4 @@ const cart = () => {
   );
 };
 
-export default cart;
+export default Cart;
